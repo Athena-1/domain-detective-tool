@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# Domínio principal
+main_domain="x.com.br"
+
+# Lista completa de padrões para combinações de domínios
+patterns=(
+    "outlet-x.site"
+    "xstore.online"
+    "xbrasil.site"
+    "oficial-x.shop"
+    "xbr.store"
+    "x-brasil.site"
+    "xofficial.store"
+    "x-online.shop"
+    "x-outlet.store"
+    "shop-xonline.site"
+    "store-xbrasil.site"
+    "brasil-x.store"
+    "xoutlet-online.site"
+    "xshop-brasil.site"
+    "official-xbr.store"
+    "x-onlinebrasil.store"
+    "xbrasil-outlet.site"
+    "xstore-brasil.site"
+    "x-onlinebrasil.store"
+    "xbrasiloutlet.online"
+    "xbrasilstore.site"
+    "xbrasilshop.store"
+    "xbrasiloutlet.store"
+    "xbrasilshop.online"
+    "xofficialstore.site"
+    "xofficialstore.online"
+    "xofficialshop.site"
+    "xofficialshop.online"
+    "xbrasilofficial.store"
+    "xbrasilofficial.site"
+    "xbrasilofficial.online"
+    "officialx-brasil.store"
+    "official-xbrasil.shop"
+    "official-xbrasil.online"
+    "oficial-x.site"
+    "xoficial.store"
+    "xbrasiloficial.site"
+    "oficialxbrasil.store"
+    "xoficialbrasil.online"
+    # Adicione mais padrões conforme necessário
+)
+
+# Função para verificar a disponibilidade de um domínio
+check_domain() {
+    domain="$1"
+    whois_result=$(whois "$domain" | grep -i "No match for domain\|not found")
+
+    if [[ -n "$whois_result" ]]; then
+        echo "$domain: Domínio disponível"
+    else
+        echo "$domain: Domínio registrado"
+    fi
+}
+
+# Loop através de todos os padrões e combinações
+for pattern in "${patterns[@]}"; do
+    # Substituir 'x' no padrão pelo domínio principal
+    domain=$(echo "$pattern" | sed "s/x/$main_domain/g")
+    check_domain "$domain"
+done
